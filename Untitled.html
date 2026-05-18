@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Njabulo Mkhize's Portfolio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@400;600;700&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --red: #D62B1E;
+      --yellow: #F5C518;
+      --white: #FFFFFF;
+      --dark: #111111;
+    }
+
+    body {
+      font-family: 'Barlow', sans-serif;
+      background: #000;
+      color: var(--white);
+      overflow-x: hidden;
+    }
+
+    /* ── PAGE WRAPPER — neat centred column ── */
+    .page-wrap {
+      max-width: 900px;
+      margin: 0 auto;
+      background: var(--red);
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 50%;
+      transform: translateX(-50%);
+      width: 100%;
+      max-width: 900px;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 18px 28px;
+      background: transparent;
+    }
+    .nav-menu { cursor: pointer; display: flex; flex-direction: column; gap: 5px; }
+    .nav-menu span { display: block; width: 28px; height: 3px; background: var(--white); border-radius: 2px; }
+    .nav-contact {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 700;
+      font-size: 13px;
+      letter-spacing: 2px;
+      color: var(--white);
+      text-decoration: none;
+      border-bottom: 2px solid var(--yellow);
+      padding-bottom: 2px;
+    }
+
+    /* ── HERO — image fills full width, no overlay text ── */
+    .hero {
+      overflow: hidden;
+    }
+    .hero-img {
+      width: 100%;
+      display: block;
+    }
+    /* Service links live in the red strip BELOW the image */
+    .hero-services {
+      background: var(--red);
+      padding: 20px 6% 24px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    .hero-services a {
+      display: block;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-style: italic;
+      font-size: clamp(17px, 3vw, 26px);
+      color: var(--white);
+      text-decoration: none;
+      line-height: 1.9;
+      letter-spacing: 0.4px;
+      transition: color 0.2s;
+    }
+    .hero-services a::before { content: '> '; }
+    .hero-services a:hover { color: var(--yellow); }
+
+    /* Yellow divider */
+    .divider { height: 5px; background: var(--yellow); width: 100%; }
+
+    /* ── ABOUT ── */
+    .about {
+      background: var(--red);
+      padding: 48px 6%;
+      display: grid;
+      grid-template-columns: 260px 1fr;
+      gap: 40px;
+      align-items: start;
+    }
+    /* Portrait — no border/frame, fills its box, zoomed in slightly */
+    .about-photo-wrap {
+      width: 100%;
+      aspect-ratio: 3/4;
+      overflow: hidden;
+    }
+    .about-photo {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 15%;
+      display: block;
+      transform: scale(1.08);
+      transform-origin: center top;
+    }
+    .about-text h2 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 38px;
+      letter-spacing: 2px;
+      margin-bottom: 16px;
+    }
+    .about-text h2 span { color: var(--yellow); }
+    .about-text p {
+      font-size: 14px;
+      line-height: 1.7;
+      margin-bottom: 12px;
+      color: #f0f0f0;
+    }
+    .about-text p strong { color: var(--yellow); font-weight: 600; }
+
+    /* ── CAREER ── */
+    .career {
+      background: var(--red);
+      padding: 0 6% 40px;
+      border-top: 3px solid var(--yellow);
+    }
+    .career h2 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 38px;
+      letter-spacing: 2px;
+      margin: 32px 0 20px;
+    }
+    .career h2 span { color: var(--yellow); }
+    .career-item {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 15px;
+      line-height: 2;
+      letter-spacing: 0.3px;
+    }
+    .career-item strong { color: var(--yellow); font-weight: 700; }
+
+    /* ── EDUCATION ── */
+    .education {
+      background: var(--red);
+      padding: 0 6% 40px;
+      border-top: 3px solid var(--yellow);
+      text-align: right;
+    }
+    .education h2 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 38px;
+      letter-spacing: 2px;
+      margin: 32px 0 20px;
+      color: var(--yellow);
+    }
+    .education-item {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 15px;
+      line-height: 2;
+    }
+    .education-item strong { color: var(--yellow); font-weight: 700; }
+
+    /* ── SKILLS + CONTACT ── */
+    .bottom-grid {
+      background: var(--red);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0 40px;
+      padding: 0 6% 60px;
+      border-top: 3px solid var(--yellow);
+      align-items: start;
+    }
+    /* Skills — now just the JPG image */
+    .skills { padding-top: 32px; }
+    .skills-img {
+      width: 100%;
+      display: block;
+    }
+
+    .contact { padding-top: 32px; text-align: right; }
+    .contact h2 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 38px;
+      letter-spacing: 2px;
+      color: var(--yellow);
+      margin-bottom: 20px;
+    }
+    .contact-row {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 14px;
+      line-height: 2.2;
+      letter-spacing: 0.3px;
+    }
+    .contact-row strong { color: var(--yellow); font-weight: 700; text-transform: uppercase; margin-right: 4px; }
+    .contact-row a { color: var(--white); text-decoration: none; }
+    .contact-row a:hover { color: var(--yellow); }
+
+    /* ── GALLERY PAGES ── */
+    .page { display: none; }
+    .page.active { display: block; }
+
+    /* Gallery page wrapper also centred */
+    .gallery-wrap {
+      max-width: 900px;
+      margin: 0 auto;
+      background: var(--dark);
+    }
+
+    .gallery-header {
+      background: var(--dark);
+      padding: 72px 6% 32px;
+      border-bottom: 5px solid var(--yellow);
+    }
+    .gallery-header .back {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 14px;
+      letter-spacing: 2px;
+      color: var(--yellow);
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+      margin-bottom: 12px;
+      transition: opacity 0.2s;
+    }
+    .gallery-header .back:hover { opacity: 0.7; }
+    .gallery-header h1 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(56px, 10vw, 110px);
+      color: var(--white);
+      line-height: 0.9;
+    }
+    .gallery-header h1 span { color: var(--yellow); }
+
+    /* Single column, each image full-width — scroll through them */
+    .gallery-stack {
+      background: var(--dark);
+      padding: 0 0 60px;
+      display: flex;
+      flex-direction: column;
+    }
+    .gallery-stack img {
+      width: 100%;
+      display: block;
+      /* Each image takes close to full viewport height so you scroll through them */
+      min-height: 90vh;
+      object-fit: cover;
+      object-position: center;
+      border-bottom: 4px solid var(--dark);
+    }
+
+    /* Responsive */
+    @media (max-width: 640px) {
+      .about { grid-template-columns: 1fr; }
+      .about-photo-wrap { max-width: 240px; }
+      .bottom-grid { grid-template-columns: 1fr; }
+      .contact { text-align: left; }
+      .education { text-align: left; }
+      nav { max-width: 100%; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════
+     HOME PAGE
+══════════════════════════════════════ -->
+<div id="page-home" class="page active">
+
+  <nav>
+    <div class="nav-menu">
+      <span></span><span></span><span></span>
+    </div>
+    <a href="#contact" class="nav-contact">CONTACT</a>
+  </nav>
+
+  <!-- Hero — full image as-is, only the 3 service links overlaid -->
+  <div class="page-wrap">
+  <section class="hero">
+    <img class="hero-img" src="Header-main-2.jpg" alt="Njabulo Mkhize Portfolio Header"/>
+  </section>
+
+  <div class="hero-services">
+    <a href="#" onclick="showPage('illustrations'); return false;">Illustrations</a>
+    <a href="#" onclick="showPage('graphic-design'); return false;">Graphic Design</a>
+    <a href="#" onclick="showPage('3d-modelling'); return false;">3D Modelling</a>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- About -->
+  <section class="about">
+    <div class="about-photo-wrap">
+      <img class="about-photo" src="portrait.png" alt="Njabulo Mkhize"/>
+    </div>
+    <div class="about-text">
+      <h2><span>ABOUT</span> ME</h2>
+      <p>I'm Njabulo Mkhize, also known as JB — a multidisciplinary creative with <strong>7+ years working across graphic design, illustration, motion graphics, and 3D modelling.</strong></p>
+      <p>My work lives at the intersection of modern digital craft and raw creative expression, where precision meets the fluid world of illustration and 3D space.</p>
+      <p>Driven by curiosity and a simple belief — every challenge has a solution — I approach each project thinking critically, working boldly, and never settling for the obvious answer.</p>
+      <p>In a field that never stands still, neither do I. I'm constantly evolving, embracing new tools and techniques to bring fresh perspectives to everything I create.</p>
+    </div>
+  </section>
+
+  <!-- Career -->
+  <section class="career">
+    <h2><span>CAREER</span> EXPERIENCE</h2>
+    <div class="career-item"><strong>PATON TUPPER</strong> | 2021 – 2024 Full-Time Graphic Designer &amp; Illustrator</div>
+    <div class="career-item"><strong>FREELANCE DESIGNER &amp; ARTIST</strong> | 2020 – 2021 Independent Creative Projects</div>
+    <div class="career-item"><strong>MAVERICK DESIGN</strong> | 2017 – 2019 Full-Time Graphic Designer &amp; Illustrator</div>
+    <div class="career-item"><strong>PRO MEDIA MOGUL</strong> | 2016 Design Intern &nbsp;|&nbsp; Durban Chamber of Commerce | 2015 Design Intern</div>
+  </section>
+
+  <!-- Education -->
+  <section class="education">
+    <h2>EDUCATION</h2>
+    <div class="education-item"><strong>DURBAN UNIVERSITY OF TECHNOLOGY (DUT)</strong> | 2012 – 2015 Diploma in Art &amp; Design</div>
+    <div class="education-item"><strong>CENTEC COLLEGE</strong> | 2011 – 2012 Diploma in Art &amp; Design</div>
+  </section>
+
+  <!-- Skills + Contact -->
+  <section class="bottom-grid" id="contact">
+    <div class="skills">
+      <img class="skills-img" src="Skills.jpg" alt="Skills"/>
+    </div>
+
+    <div class="contact">
+      <h2>CONTACT DETAILS</h2>
+      <div class="contact-row"><strong>Phone:</strong> 065 892 5413</div>
+      <div class="contact-row"><strong>Email:</strong> <a href="mailto:mkhizenjabulo509@gmail.com">MKHIZENJABULO509@GMAIL.COM</a></div>
+      <div class="contact-row"><strong>LinkedIn:</strong> <a href="https://linkedin.com/in/njabulomkhize" target="_blank">LINKEDIN.COM/IN/NJABULOMKHIZE</a></div>
+      <div class="contact-row"><strong>Instagram:</strong> <a href="https://instagram.com/ayem_jaybee" target="_blank">@AYEM_JAYBEE</a></div>
+      <div class="contact-row"><strong>Location:</strong> DURBAN, SOUTH AFRICA</div>
+    </div>
+  </section><!-- /bottom-grid -->
+
+</div><!-- /page-wrap -->
+</div><!-- /page-home -->
+
+
+<!-- ══════════════════════════════════════
+     ILLUSTRATIONS PAGE
+══════════════════════════════════════ -->
+<div id="page-illustrations" class="page">
+  <nav>
+    <div class="nav-menu">
+      <span style="background:#fff"></span>
+      <span style="background:#fff"></span>
+      <span style="background:#fff"></span>
+    </div>
+    <a href="#" class="nav-contact" onclick="showPage('home');return false;">HOME</a>
+  </nav>
+  <div class="gallery-wrap">
+    <div class="gallery-header">
+      <a class="back" href="#" onclick="showPage('home');return false;">← BACK TO PORTFOLIO</a>
+      <h1><span>ILLUS</span>TRATIONS</h1>
+    </div>
+    <div class="gallery-stack">
+      <img src="Illustrations-1.jpg" alt="Illustration 1"/>
+      <img src="Illustrations-2.jpg" alt="Illustration 2"/>
+      <img src="Illustrations-3.jpg" alt="Illustration 3"/>
+      <img src="Illustrations-4.jpg" alt="Illustration 4"/>
+      <img src="Illustrations-5.jpg" alt="Illustration 5"/>
+      <img src="Illustrations-6.jpg" alt="Illustration 6"/>
+      <img src="Illustrations-7.jpg" alt="Illustration 7"/>
+      <img src="Illustrations-8.jpg" alt="Illustration 8"/>
+    </div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════
+     GRAPHIC DESIGN PAGE
+══════════════════════════════════════ -->
+<div id="page-graphic-design" class="page">
+  <nav>
+    <div class="nav-menu">
+      <span style="background:#fff"></span>
+      <span style="background:#fff"></span>
+      <span style="background:#fff"></span>
+    </div>
+    <a href="#" class="nav-contact" onclick="showPage('home');return false;">HOME</a>
+  </nav>
+  <div class="gallery-wrap">
+    <div class="gallery-header">
+      <a class="back" href="#" onclick="showPage('home');return false;">← BACK TO PORTFOLIO</a>
+      <h1><span>GRAPHIC</span> DESIGN</h1>
+    </div>
+    <div class="gallery-stack">
+      <img src="Graphic-Design-1.jpg" alt="Graphic Design 1"/>
+      <img src="Graphic-Design-2.jpg" alt="Graphic Design 2"/>
+      <img src="Graphic-Design-3.jpg" alt="Graphic Design 3"/>
+      <img src="Graphic-Design-4.jpg" alt="Graphic Design 4"/>
+      <img src="Graphic-Design-5.jpg" alt="Graphic Design 5"/>
+      <img src="Graphic-Design-6.jpg" alt="Graphic Design 6"/>
+      <img src="Graphic-Design-7.jpg" alt="Graphic Design 7"/>
+      <img src="Graphic-Design-8.jpg" alt="Graphic Design 8"/>
+      <img src="Graphic-Design-9.jpg" alt="Graphic Design 9"/>
+      <img src="Graphic-Design-10.jpg" alt="Graphic Design 10"/>
+    </div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════
+     3D MODELLING PAGE
+══════════════════════════════════════ -->
+<div id="page-3d-modelling" class="page">
+  <nav>
+    <div class="nav-menu">
+      <span style="background:#fff"></span>
+      <span style="background:#fff"></span>
+      <span style="background:#fff"></span>
+    </div>
+    <a href="#" class="nav-contact" onclick="showPage('home');return false;">HOME</a>
+  </nav>
+  <div class="gallery-wrap">
+    <div class="gallery-header">
+      <a class="back" href="#" onclick="showPage('home');return false;">← BACK TO PORTFOLIO</a>
+      <h1><span>3D</span> MODELLING</h1>
+    </div>
+    <div class="gallery-stack">
+      <img src="3D-modeling-1.jpg" alt="3D Model 1"/>
+      <img src="3D-modeling-2.jpg" alt="3D Model 2"/>
+      <img src="3D-modeling-3.jpg" alt="3D Model 3"/>
+      <img src="3D-modeling-4.jpg" alt="3D Model 4"/>
+      <img src="3D-modeling-5.jpg" alt="3D Model 5"/>
+      <img src="3D-modeling-6.jpg" alt="3D Model 6"/>
+    </div>
+  </div>
+</div>
+
+
+<script>
+  function showPage(name) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    const target = document.getElementById('page-' + name);
+    if (target) {
+      target.classList.add('active');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  }
+
+  // Handle hash-based navigation
+  window.addEventListener('hashchange', () => {
+    const hash = window.location.hash.replace('#','');
+    if (hash === 'contact') {
+      showPage('home');
+      setTimeout(() => {
+        document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
+      }, 100);
+    }
+  });
+</script>
+
+</body>
+</html>
