@@ -9,7 +9,8 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --red: #D62B1E;
+      /* 1. MATCHED TO EXACT BRAND RED */
+      --red: #f13517;
       --yellow: #F5C518;
       --white: #FFFFFF;
       --dark: #111111;
@@ -64,27 +65,36 @@
       width: 100%;
       display: block;
     }
-    /* Service links live in the red strip BELOW the image */
+    
+    /* 2. RELOOKED LINK BUTTONS (Sleek Horizontal Rectangles) */
     .hero-services {
       background: var(--red);
-      padding: 20px 6% 24px;
+      padding: 24px 6%;
       display: flex;
       flex-direction: column;
-      align-items: flex-start;
+      gap: 12px;
+      width: 100%;
     }
     .hero-services a {
       display: block;
+      width: 100%;
+      background: var(--dark);
       font-family: 'Barlow Condensed', sans-serif;
-      font-style: italic;
-      font-size: clamp(17px, 3vw, 26px);
+      font-weight: 600;
+      font-size: 18px;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
       color: var(--white);
       text-decoration: none;
-      line-height: 1.9;
-      letter-spacing: 0.4px;
-      transition: color 0.2s;
+      text-align: center;
+      padding: 14px 20px;
+      border: 2px solid transparent;
+      transition: all 0.2s ease-in-out;
     }
-    .hero-services a::before { content: '> '; }
-    .hero-services a:hover { color: var(--yellow); }
+    .hero-services a:hover { 
+      color: var(--dark); 
+      background: var(--yellow);
+    }
 
     /* Yellow divider */
     .divider { height: 5px; background: var(--yellow); width: 100%; }
@@ -251,9 +261,10 @@
     .gallery-stack img {
       width: 100%;
       display: block;
-      /* Each image takes close to full viewport height so you scroll through them */
-      min-height: 90vh;
-      object-fit: cover;
+      /* 3. FIXED MOBILE IMAGE CROPPING */
+      height: auto;
+      max-height: 95vh;
+      object-fit: contain;
       object-position: center;
       border-bottom: 4px solid var(--dark);
     }
@@ -267,13 +278,21 @@
       .education { text-align: left; }
       nav { max-width: 100%; }
     }
+
+    /* Tablet and Desktop specific tweak for link layouts */
+    @media (min-width: 641px) {
+      .hero-services {
+        flex-direction: row;
+        gap: 16px;
+      }
+      .hero-services a {
+        flex: 1;
+      }
+    }
   </style>
 </head>
 <body>
 
-<!-- ══════════════════════════════════════
-     HOME PAGE
-══════════════════════════════════════ -->
 <div id="page-home" class="page active">
 
   <nav>
@@ -283,7 +302,6 @@
     <a href="#contact" class="nav-contact">CONTACT</a>
   </nav>
 
-  <!-- Hero — full image as-is, only the 3 service links overlaid -->
   <div class="page-wrap">
   <section class="hero">
     <img class="hero-img" src="Header-main-2.jpg" alt="Njabulo Mkhize Portfolio Header"/>
@@ -297,7 +315,6 @@
 
   <div class="divider"></div>
 
-  <!-- About -->
   <section class="about">
     <div class="about-photo-wrap">
       <img class="about-photo" src="portrait.png" alt="Njabulo Mkhize"/>
@@ -311,7 +328,6 @@
     </div>
   </section>
 
-  <!-- Career -->
   <section class="career">
     <h2><span>CAREER</span> EXPERIENCE</h2>
     <div class="career-item"><strong>PATON TUPPER</strong> | 2021 – 2024 Full-Time Graphic Designer &amp; Illustrator</div>
@@ -320,14 +336,12 @@
     <div class="career-item"><strong>PRO MEDIA MOGUL</strong> | 2016 Design Intern &nbsp;|&nbsp; Durban Chamber of Commerce | 2015 Design Intern</div>
   </section>
 
-  <!-- Education -->
   <section class="education">
     <h2>EDUCATION</h2>
     <div class="education-item"><strong>DURBAN UNIVERSITY OF TECHNOLOGY (DUT)</strong> | 2012 – 2015 Diploma in Art &amp; Design</div>
     <div class="education-item"><strong>CENTEC COLLEGE</strong> | 2011 – 2012 Diploma in Art &amp; Design</div>
   </section>
 
-  <!-- Skills + Contact -->
   <section class="bottom-grid" id="contact">
     <div class="skills">
       <img class="skills-img" src="Skills.jpg" alt="Skills"/>
@@ -341,16 +355,7 @@
       <div class="contact-row"><strong>Instagram:</strong> <a href="https://instagram.com/ayem_jaybee" target="_blank">@AYEM_JAYBEE</a></div>
       <div class="contact-row"><strong>Location:</strong> DURBAN, SOUTH AFRICA</div>
     </div>
-  </section><!-- /bottom-grid -->
-
-</div><!-- /page-wrap -->
-</div><!-- /page-home -->
-
-
-<!-- ══════════════════════════════════════
-     ILLUSTRATIONS PAGE
-══════════════════════════════════════ -->
-<div id="page-illustrations" class="page">
+  </section></div></div><div id="page-illustrations" class="page">
   <nav>
     <div class="nav-menu">
       <span style="background:#fff"></span>
@@ -378,9 +383,6 @@
 </div>
 
 
-<!-- ══════════════════════════════════════
-     GRAPHIC DESIGN PAGE
-══════════════════════════════════════ -->
 <div id="page-graphic-design" class="page">
   <nav>
     <div class="nav-menu">
@@ -411,9 +413,6 @@
 </div>
 
 
-<!-- ══════════════════════════════════════
-     3D MODELLING PAGE
-══════════════════════════════════════ -->
 <div id="page-3d-modelling" class="page">
   <nav>
     <div class="nav-menu">
